@@ -22,8 +22,6 @@ public class AndrasPlugin extends ViewsTabBar {
 
         private String globalDescription;
 
-        private boolean nameIsOk;
-
         public String getGlobalName() {
             return globalName;
         }
@@ -49,7 +47,7 @@ public class AndrasPlugin extends ViewsTabBar {
 
         @Override
         public boolean configure (StaplerRequest req, JSONObject formData) throws FormException {
-            if (!nameIsOk) {
+            if (!formData.getString("globalName").matches("[a-zA-Z\\s]+")) {
                 formData.replace("globalName", globalName);
 
             }
@@ -61,11 +59,7 @@ public class AndrasPlugin extends ViewsTabBar {
 
         public FormValidation doCheckGlobalName(@QueryParameter String globalName) {
             if (globalName.matches("[a-zA-Z\\s]+")) {
-                nameIsOk = true;
                 return FormValidation.ok();
-            }
-            else {
-                nameIsOk = false;
             }
             return FormValidation.warning("Name can only contain lowercase and uppercase letters and spaces");
         }
