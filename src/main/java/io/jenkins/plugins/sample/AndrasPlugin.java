@@ -17,7 +17,7 @@ public class AndrasPlugin extends ViewsTabBar {
     }
 
     @Extension
-    public static final class CustomViewsTabBarDescriptor extends ViewsTabBarDescriptor {
+    public static final class AndrasPluginDescriptor extends ViewsTabBarDescriptor {
         private String globalName;
 
         private String globalDescription;
@@ -28,11 +28,17 @@ public class AndrasPlugin extends ViewsTabBar {
             return globalName;
         }
 
+        public void setGlobalName(String globalName) {
+            this.globalName = globalName;
+        }
         public String getGlobalDescription() {
             return globalDescription;
         }
 
-        public CustomViewsTabBarDescriptor() {
+        public void setGlobalDescription(String globalDescription) {
+            this.globalDescription = globalDescription;
+        }
+        public AndrasPluginDescriptor() {
             load();
         }
 
@@ -43,10 +49,12 @@ public class AndrasPlugin extends ViewsTabBar {
 
         @Override
         public boolean configure (StaplerRequest req, JSONObject formData) throws FormException {
-            if (nameIsOk) {
-                globalName = formData.getString("globalName");
+            if (!nameIsOk) {
+                formData.replace("globalName", globalName);
+
             }
-            globalDescription = formData.getString("globalDescription");
+            req.bindJSON(this, formData);
+
             save();
             return false;
         }
