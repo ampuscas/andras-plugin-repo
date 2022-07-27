@@ -1,6 +1,7 @@
 package io.jenkins.plugins.sample;
 
 import hudson.Extension;
+import hudson.model.Item;
 import hudson.util.FormValidation;
 import hudson.util.ListBoxModel;
 import hudson.views.ViewsTabBar;
@@ -73,7 +74,7 @@ public class AndrasPlugin extends ViewsTabBar {
         }
 
         public ListBoxModel doFillCategoriesItems() {
-            Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+            Jenkins.get().checkAnyPermission(Jenkins.ADMINISTER, Item.CONFIGURE, Item.CREATE);
             ListBoxModel items = new ListBoxModel();
             items.add("first item", UUID.randomUUID().toString());
             items.add("second item", UUID.randomUUID().toString());
