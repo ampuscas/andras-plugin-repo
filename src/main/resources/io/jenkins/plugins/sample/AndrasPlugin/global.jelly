@@ -8,4 +8,18 @@
    <f:entry title="${%Description}" field="globalDescription">
       <f:textarea />
    </f:entry>
+
+   <f:block>
+      <f:optionalBlock name="optBlock" title="Provide Connection Details" checked="${urlName != null}">
+         <f:entry title="${%URL}" field="urlName">
+            <f:textbox />
+         </f:entry>
+         <f:entry title="${%Username}" field="userName">
+            <f:textbox />
+         </f:entry>
+         <f:entry title="${%Password}" field="password">
+            <f:password />
+         </f:entry>
+      </f:optionalBlock>
+   </f:block>
 </j:jelly>
