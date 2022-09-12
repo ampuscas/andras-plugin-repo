@@ -22,4 +22,9 @@
          </f:entry>
       </f:optionalBlock>
    </f:block>
+
+   <f:entry title="Categories" field="categories">
+      <f:select />
+   </f:entry>
+
 </j:jelly>

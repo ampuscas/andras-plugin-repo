@@ -1,14 +1,21 @@
 package io.jenkins.plugins.sample;
 
 import hudson.Extension;
+import hudson.model.Item;
 import hudson.util.FormValidation;
 import hudson.util.Secret;
+import hudson.util.ListBoxModel;
 import hudson.views.ViewsTabBar;
 import hudson.views.ViewsTabBarDescriptor;
+import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class AndrasPlugin extends ViewsTabBar {
 
@@ -83,7 +90,7 @@ public class AndrasPlugin extends ViewsTabBar {
         }
 
         @Override
-        public boolean configure (StaplerRequest req, JSONObject formData) throws FormException {
+        public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
             if (!formData.getString("globalName").matches("[a-zA-Z\\s]+")) {
                 formData.replace("globalName", globalName);
 
@@ -95,6 +102,7 @@ public class AndrasPlugin extends ViewsTabBar {
         }
 
         public FormValidation doCheckGlobalName(@QueryParameter String globalName) {
+            Jenkins.get().checkPermission(Jenkins.ADMINISTER);
             if (globalName.matches("[a-zA-Z\\s]+")) {
                 return FormValidation.ok();
             }
@@ -106,6 +114,15 @@ public class AndrasPlugin extends ViewsTabBar {
                 return FormValidation.ok();
             }
             return FormValidation.error("Username can only contain lowercase letters");
+        }
+
+        public ListBoxModel doFillCategoriesItems() {
+            Jenkins.get().checkAnyPermission(Jenkins.ADMINISTER, Item.CONFIGURE, Item.CREATE);
+            ListBoxModel items = new ListBoxModel();
+            items.add("first item", UUID.randomUUID().toString());
+            items.add("second item", UUID.randomUUID().toString());
+
+            return items;
         }
     }
 }
