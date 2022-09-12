@@ -8,4 +8,8 @@
    <f:entry title="${%Description}" field="globalDescription">
       <f:textarea />
    </f:entry>
+
+   <f:entry title="Categories" field="categories">
+      <f:select />
+   </f:entry>
 </j:jelly>
