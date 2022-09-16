@@ -3,6 +3,7 @@ package io.jenkins.plugins.sample;
 import hudson.Extension;
 import hudson.model.Item;
 import hudson.util.FormValidation;
+import hudson.util.Secret;
 import hudson.util.ListBoxModel;
 import hudson.views.ViewsTabBar;
 import hudson.views.ViewsTabBarDescriptor;
@@ -25,9 +26,27 @@ public class AndrasPlugin extends ViewsTabBar {
 
     @Extension
     public static final class AndrasPluginDescriptor extends ViewsTabBarDescriptor {
+
+        public static class OptionalBlock {
+            private String urlName;
+
+            private String userName;
+
+            private Secret password;
+
+            @DataBoundConstructor
+            public OptionalBlock(String urlName, String userName, Secret password) {
+                this.urlName = urlName;
+                this.userName = userName;
+                this.password = password;
+            }
+        }
+
         private String globalName;
 
         private String globalDescription;
+
+        private OptionalBlock optBlock;
 
         public String getGlobalName() {
             return globalName;
@@ -36,12 +55,29 @@ public class AndrasPlugin extends ViewsTabBar {
         public void setGlobalName(String globalName) {
             this.globalName = globalName;
         }
+
         public String getGlobalDescription() {
             return globalDescription;
         }
 
         public void setGlobalDescription(String globalDescription) {
             this.globalDescription = globalDescription;
+        }
+
+        public String getUserName() {
+            return optBlock.userName;
+        }
+
+        public String getUrlName() {
+            return optBlock.urlName;
+        }
+
+        public Secret getPassword() {
+            return optBlock.password;
+        }
+
+        public void setOptBlock(OptionalBlock optBlock) {
+            this.optBlock = optBlock;
         }
 
         public AndrasPluginDescriptor() {
@@ -54,7 +90,7 @@ public class AndrasPlugin extends ViewsTabBar {
         }
 
         @Override
-        public boolean configure (StaplerRequest req, JSONObject formData) throws FormException {
+        public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
             if (!formData.getString("globalName").matches("[a-zA-Z\\s]+")) {
                 formData.replace("globalName", globalName);
 
@@ -71,6 +107,13 @@ public class AndrasPlugin extends ViewsTabBar {
                 return FormValidation.ok();
             }
             return FormValidation.warning("Name can only contain lowercase and uppercase letters and spaces");
+        }
+
+        public FormValidation doCheckUserName(@QueryParameter String userName) {
+            if (userName.matches("[a-z]+")) {
+                return FormValidation.ok();
+            }
+            return FormValidation.error("Username can only contain lowercase letters");
         }
 
         public ListBoxModel doFillCategoriesItems() {
