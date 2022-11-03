@@ -13,4 +13,4 @@ jobs:
           mode: exactly
           count: 1
           labels: "fips-checked"
-          comment: "Aici gasesti cum sa pui label: https://github.com/cloudbees/docsite-engineering-cbci/blob/main/docs/modules/fips/pages/plugin-compliance-checklist.adoc"
+          add-comment: true
