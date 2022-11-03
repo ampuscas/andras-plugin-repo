@@ -1,7 +1,7 @@
 name: Pull Request Labels
 on:
   pull_request:
-    types: [opened,  reopened, labeled]
+    types: [opened,  reopened, labeled,  unlabeled]
 jobs:
   label:
     runs-on: ubuntu-latest
@@ -10,9 +10,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          mode: exactly
+          mode: minimum
           count: 1
-          labels: "fips-checked"
-      - run: echo "Nu ai pus label"
-        if: needs.label.outputs.status == 'failure'
+          labels: "fips-checked, fips-exempt"
             
