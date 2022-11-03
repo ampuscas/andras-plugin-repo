@@ -13,4 +13,6 @@ jobs:
           mode: exactly
           count: 1
           labels: "fips-checked"
-          add-comment: true
+      - run: echo "Nu ai pus label"
+        if: needs.label.outputs.status == 'failure'
+            
