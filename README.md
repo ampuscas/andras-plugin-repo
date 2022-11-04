@@ -28,4 +28,4 @@ Licensed under MIT, see [LICENSE](LICENSE.md)
 
 ## Test label
 
-Test label 2
+Test label 3
