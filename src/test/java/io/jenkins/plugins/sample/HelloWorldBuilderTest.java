@@ -16,7 +16,7 @@ public class HelloWorldBuilderTest {
     public JenkinsRule jenkins = new JenkinsRule();
 
     final String name = "Bobby";
-    final String name2 = "AAA";
+    final String name2 = "AAAAAAAAAA";
 
     @Test
     public void testConfigRoundtrip() throws Exception {
