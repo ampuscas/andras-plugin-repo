@@ -1,2 +1,2 @@
-documentation:
-- '*'
+test:
+- src/test
