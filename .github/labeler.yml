@@ -1,2 +1,3 @@
 test:
-- any: ['src/test/**/*', '!src/main/*']
+- any: ['src/test/**/*']
+  all: ['!src/main/*']
