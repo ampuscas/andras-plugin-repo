@@ -1,2 +1,2 @@
 test:
-any: ['src/test/**/*', '!src/main/**/*']
+- any: ['src/test/**/*', '!src/main/**/*']
