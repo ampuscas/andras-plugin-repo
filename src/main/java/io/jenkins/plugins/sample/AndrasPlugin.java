@@ -23,7 +23,7 @@ public class AndrasPlugin extends ViewsTabBar {
     public AndrasPlugin() {
         super();
     }
-//comment for test only3
+//comment for test only4
     @Extension
     public static final class AndrasPluginDescriptor extends ViewsTabBarDescriptor {
 
