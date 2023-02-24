@@ -13,8 +13,11 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Base64;
 import java.util.UUID;
 
 public class AndrasPlugin extends ViewsTabBar {
@@ -123,6 +126,26 @@ public class AndrasPlugin extends ViewsTabBar {
             items.add("second item", UUID.randomUUID().toString());
 
             return items;
+        }
+
+        public FormValidation doTestConnection(@QueryParameter URL urlName, @QueryParameter String userName, @QueryParameter Secret password) throws IOException {
+            try {
+                HttpURLConnection con = (HttpURLConnection) urlName.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("Authorization", getBasicAuthenticationHeader(userName, String.valueOf(password)));
+                if (con.getResponseCode() == 200) {
+                    return FormValidation.ok("Connection OK");
+                }
+                return FormValidation.error("Something is not right " + con.getResponseCode() + " - " + con.getResponseMessage());
+            }
+            catch (Exception e) {
+                return FormValidation.error("Something is not right " +e.getMessage());
+            }
+        }
+
+        private static final String getBasicAuthenticationHeader(String username, String password) {
+            String valueToEncode = username + ":" + password;
+            return new String("Basic " + Base64.getEncoder().encode(valueToEncode.getBytes(Charset.forName("UTF-8"))));
         }
     }
 }

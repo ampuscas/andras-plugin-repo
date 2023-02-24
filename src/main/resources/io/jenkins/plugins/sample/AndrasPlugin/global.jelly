@@ -20,6 +20,8 @@
          <f:entry title="${%Password}" field="password">
             <f:password />
          </f:entry>
+
+         <f:validateButton title="${%Test Connection}" progress="${%Testing...}" method="testConnection" with="urlName,userName,password" />
       </f:optionalBlock>
    </f:block>
 
