@@ -16,7 +16,7 @@ public class HelloWorldBuilderTest {
     public JenkinsRule jenkins = new JenkinsRule();
 
     final String name = "Bobby";
-
+//comment for test
     @Test
     public void testConfigRoundtrip() throws Exception {
         FreeStyleProject project = jenkins.createFreeStyleProject();
