@@ -1,5 +1,5 @@
-/*
- See the documentation for more options:
- https://github.com/jenkins-infra/pipeline-library/
-*/
-buildPlugin(useContainerAgent: true)
+
+node() {
+    echo "Hello from the Verified OSS ATH"
+    echo "Pull Request from ATH-1680686063045"
+}
