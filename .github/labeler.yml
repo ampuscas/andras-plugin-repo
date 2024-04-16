@@ -1,2 +1,3 @@
-test:
-- any: ['src/test/**/*', '!src/main/*']
+fips-exempt:
+- any: ['src/test/**/*']
+  any: ['!src/main/*']
