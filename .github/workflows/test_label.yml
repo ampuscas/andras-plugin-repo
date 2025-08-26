@@ -13,5 +13,5 @@ jobs:
           mode: minimum
           count: 1
           labels: "fips-checked, fips-exempt"
-          comment: "bla bla"
+
             
